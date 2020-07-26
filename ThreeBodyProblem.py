@@ -100,8 +100,8 @@ twobodyresult=sp.integrate.odeint(TwoBodyMotion,init_parameters,time_span,args=(
 r1_sol=twobodyresult[:,:3]
 r2_sol=twobodyresult[:,3:6]
 
- # Plot from blog
-#Create figure
+# Plot from blog
+# Create figure
 fig=plot.figure(figsize=(15,15))#Create 3D axes
 ax=fig.add_subplot(111,projection="3d")#Plot the orbits
 ax.plot(r1_sol[:,0],r1_sol[:,1],r1_sol[:,2],color="darkblue")
@@ -115,9 +115,11 @@ ax.set_title("Visualization of orbits of stars in a two-body system\n",fontsize=
 ax.legend(loc="upper left",fontsize=14)
 
 #Find location of Centroid
-#rcom_sol=(m1*r1_sol+m2*r2_sol)/(m1+m2)#Find location of Alpha Centauri A w.r.t COM
-#r1com_sol=r1_sol-rcom_sol#Find location of Alpha Centauri B w.r.t COM
-#r2com_sol=r2_sol-rcom_sol
+#rcom_solution=(m1*r1_solution+m2*r2_solution)/(m1+m2)
+#Find location of AC A w.r.t Centroid
+#r1com_solution=r1_sol-rcom_solution
+#Location of AC B w.r.t Centroid
+#r2com_solution=r2_solution-rcom_solution
 
 # Following the modeling:
 # Quantities for reference
@@ -170,3 +172,17 @@ threeBodyEquations=sp.integrate.odeint(ThreeBodyEquations,init_params,time_span,
 r1_sol=threeBodyEquations[:,:3]
 r2_sol=threeBodyEquations[:,3:6]
 r3_sol=threeBodyEquations[:,6:9]
+
+fig=plot.figure(figsize=(15,15))#Create 3D axes
+ax=fig.add_subplot(111,projection="3d")#Plot the orbits
+ax.plot(r1_sol[:,0],r1_sol[:,1],r1_sol[:,2],color="darkblue")
+ax.plot(r2_sol[:,0],r2_sol[:,1],r2_sol[:,2],color="tab:red")#Plot the final positions of the stars
+ax.plot(r3_sol[:,0],r3_sol[:,1],r3_sol[:,2],color="purple")
+ax.scatter(r1_sol[-1,0],r1_sol[-1,1],r1_sol[-1,2],color="darkblue",marker="o",s=100,label="Alpha Centauri A")
+ax.scatter(r2_sol[-1,0],r2_sol[-1,1],r2_sol[-1,2],color="tab:red",marker="o",s=100,label="Alpha Centauri B")#Add a few more bells and whistles
+ax.scatter(r3_sol[-1,0],r3_sol[-1,1],r3_sol[-1,2],color="purple",marker="o",s=100,label="Sol")
+ax.set_xlabel("x-coordinate",fontsize=14)
+ax.set_ylabel("y-coordinate",fontsize=14)
+ax.set_zlabel("z-coordinate",fontsize=14)
+ax.set_title("Visualization of orbits of stars in a three-body system\n",fontsize=14)
+ax.legend(loc="upper left",fontsize=14)
